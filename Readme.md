@@ -1,29 +1,60 @@
-# Distributed Prime Number Classifier
+# Distributed System Middle Layer
 
-This project demonstrates a simple distributed system using Python and socket programming. It consists of a client interface (`a.py`), an intermediary server (`b.py`), and three backend servers (`x.py`, `y.py`, `z.py`). The system is designed to classify numbers into three categories: 0 and 1, prime numbers, and composite numbers. It showcases basic concepts of network programming, including client-server communication, data parsing, and distributed processing.
+This project demonstrates a simple yet functional distributed system using Python and socket programming. It is designed to showcase how a client interface can interact with backend servers through a middle layer, facilitating a basic understanding of distributed systems architecture.
 
-## Overview
+## Architecture
 
-- `a.py` acts as the client interface, allowing users to input a string of numbers separated by spaces.
-- `b.py` serves as the intermediary server. It receives the string of numbers from `a.py`, classifies each number, and then forwards them to the appropriate backend server based on their classification.
-  - Numbers 0 and 1 are sent to `x.py`.
-  - Prime numbers are forwarded to `y.py`.
-  - Composite numbers are sent to `z.py`.
-- `x.py`, `y.py`, and `z.py` are backend servers that receive and process numbers forwarded by `b.py`.
+The project is structured into four main components:
 
-## Setup
+- **Client Interface (`a.py`)**: The user-facing component that sends a series of numbers to the middle layer for processing.
+- **Middle Layer (`b.py`)**: Acts as an intermediary between the client interface and the backend servers. It classifies the numbers received from the client interface and forwards them to the appropriate backend server based on specific criteria.
+- **Backend Servers (`x.py`, `y.py`, `z.py`)**: These servers process the numbers sent by the middle layer. Each server has a unique role or processing logic, and after processing, they send the numbers back to the middle layer.
+- **The middle layer (`b.py`)** then aggregates the processed numbers from all backend servers and sends them back to the client interface.
 
-To run this project, you need Python 3 installed on your system. No external libraries are required as the project uses the built-in `socket` module for network communication.
+## How to Run
 
-1. Clone this repository or download the source code.
-2. Open a terminal and navigate to the project directory.
+Follow these steps to run the distributed system on your local machine:
 
-## Running the System
+### Step 1: Start All Backend Servers
 
-Follow these steps to run the system:
+Open a terminal window for each backend server and start them using the following commands:
 
-1. Start the backend servers in separate terminal windows or tabs:
-   ```bash
-   python x.py
-   python y.py
-   python z.py
+```sh
+python x.py
+python y.py
+python z.py
+```
+
+Make sure each server is running before proceeding to the next step.
+
+### Step 2: Start the Middle Layer
+
+In a new terminal window, start the middle layer:
+
+```sh
+python b.py
+```
+
+Wait for confirmation that the middle layer is listening for connections before moving to the next step.
+
+### Step 3: Start the Client Interface
+
+Finally, in another terminal window, start the client interface:
+
+```sh
+python a.py
+```
+
+Follow the on-screen prompts to enter the numbers you wish to process.
+
+## Project Structure
+
+- `a.py`: The client interface that sends numbers to be processed.
+- `b.py`: The middle layer that routes numbers to the appropriate backend server and aggregates the results.
+- `x.py`, `y.py`, `z.py`: Backend servers that process numbers in different ways.
+
+## Dependencies
+
+- Python 3.x
+- No external libraries are required.
+
